@@ -3,12 +3,12 @@
     {
       "id": 1,
       "name": "Jim",
-      "description": "I am a project manager",
+      "description": "Jim is a project manager",
       "state": "ADDED"
     },
     {
       "name": "Akram",
-      "state": "APPROVED",
+      "state": "ADDED",
       "description": "Akram is a frontend developer",
       "id": 2
     },
@@ -17,12 +17,6 @@
       "description": "Alex is a backend developer",
       "state": "ACTIVE",
       "id": 3
-    },
-    {
-      "name": "test",
-      "description": "test",
-      "state": "IN-CHECK",
-      "id": 4
     }
   ]
 }

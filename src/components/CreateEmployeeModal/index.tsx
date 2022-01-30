@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
 import Modal from '../Modal';
 import { states } from '../../constants';
 import { useEmployees } from '../../contexts/employees';
-
+import FieldInput from '../FieldInput';
 interface Props {
     open: boolean,
     onClose: () => void
@@ -16,6 +16,7 @@ const CreateEmployeeModal: FC<Props> = ({ open, onClose }) => {
     }
 
     const [state, setState] = useState(initialState);
+    const [isSubmited, setIsSubmited] = useState(false);
 
     const { addEmployee } = useEmployees();
 
@@ -28,10 +29,17 @@ const CreateEmployeeModal: FC<Props> = ({ open, onClose }) => {
 
     function handleSubmit(ev: FormEvent<HTMLFormElement>) {
         ev.preventDefault();
-        addEmployee(state).then(() => {
-            onClose();
-        });
+        setIsSubmited(true);
+        if (state.name && state.name.length >= 4) {
+            addEmployee(state).then(() => {
+                onClose();
+                setState(initialState)
+                setIsSubmited(false);
+            });
+        }
     }
+
+    const nameError = isSubmited && (!state.name || state.name.length < 4);
 
     return (
         <Modal
@@ -40,24 +48,33 @@ const CreateEmployeeModal: FC<Props> = ({ open, onClose }) => {
             title='Create Employee'
         >
             <form onSubmit={handleSubmit}>
-                <div className='mb-3'>
-                    <label className='mb-2 d-inline-block'>Name</label>
-                    <input name='name' className='form-control' onChange={handleInput} value={state.name} />
-                </div>
-                <div className='mb-3'>
-                    <label className='mb-2 d-inline-block'>Description</label>
-                    <textarea name='description' className='form-control' onChange={handleInput} value={state.description} />
-                </div>
-                <div className='mb-3'>
-                    <label className='mb-2 d-inline-block'>State</label>
-                    <select name='state' className='form-control' onChange={handleInput} value={state.state}>
-                        {states.map((state) => (
-                            <option key={state} value={state}>{state}</option>
-                        ))}
-                    </select>
-                </div>
+                <FieldInput
+                    label='Name'
+                    name='name'
+                    onChange={handleInput}
+                    value={state.name}
+                    error={nameError ? 'Name is required and at least has to be 4 characters' : ''}
+                />
+
+                <FieldInput
+                    component='textarea'
+                    label='Description'
+                    name='description'
+                    onChange={handleInput}
+                    value={state.description}
+                />
+
+                <FieldInput
+                    component='select'
+                    label='State'
+                    name='state'
+                    onChange={handleInput}
+                    value={state.state}
+                    options={states.map((state) => ({ label: state, value: state }))}
+                />
+
                 <div className='px-3 pt-3 mx-n-3 border-top d-flex justify-content-end'>
-                    <button className='btn primary' type='submit'>
+                    <button className='btn primary' type='submit' disabled={nameError}>
                         Create Employee
                     </button>
                 </div>
