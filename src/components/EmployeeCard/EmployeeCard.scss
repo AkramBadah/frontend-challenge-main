@@ -1,13 +1,16 @@
-.empolyee-card {
-    width: 50%;
-    max-width: 50%;
-    flex-basis: 50%;
-    padding-left: 15px;
-    padding-right: 15px;
-
+.employee-card {
     @media (max-width: 991px) {
-        width: 100%;
-        max-width: 100%;
-        flex-basis: 100%;
+        img {
+            width: 150px;
+            height: 150px;
+        }
+    }
+    
+    @media (max-width: 767px) {
+        flex-direction: column;
+        img {
+            width: 100%;
+            height: auto;
+        }
     }
 }

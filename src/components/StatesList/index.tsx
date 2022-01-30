@@ -2,9 +2,11 @@ import React, { FC } from 'react';
 import { states } from '../../constants';
 import classnames from 'classnames';
 import { useEmployees } from '../../contexts/employees';
+import { Employee } from '../../types';
+
+import { ReactComponent as ActiveIcon } from '../../assets/imgs/icons/active-icon.svg'
 
 import './StatesList.scss';
-import { Employee } from '../../types';
 
 interface Props {
     employee: Employee
@@ -23,10 +25,13 @@ const StatesList: FC<Props> = ({ employee }) => {
             {states.map((state) => (
                 <li className='d-flex align-items-center' key={state}>
                     <button
-                        className={classnames('py-1 px-2 w-100', { 'is-active': employee.state === state })}
+                        className={classnames('w-100', { 'is-active': employee.state === state })}
                         onClick={() => setEmployeeState(state)}
                         type='button'
                     >
+                        {employee.state === state && (
+                            <ActiveIcon className='icon' />
+                        )}
                         {state}
                     </button>
                 </li>

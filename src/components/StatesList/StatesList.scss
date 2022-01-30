@@ -6,16 +6,38 @@
             background-color: transparent;
             position: relative;
             border: 0;
-            font-size: 12px;
+            padding: 16px 16px 16px 33px;
 
-            @media (max-width: 500px) {
+            .icon {
+                position: absolute;
+                right: 5px;
+                z-index: 998;
+                top: 5px;
+            }
+
+            @media (max-width: 991px) {
+                padding: 8px 16px 8px 28px;
+                .icon {
+                    width: 10px;
+                    height: 10px;
+                }
+            }
+
+            @media (max-width: 767px) {
                 font-size: 10px;
+                padding: 4px 8px 4px 15px;
+                .icon {
+                    display: none;
+                }
             }
 
             &.is-active {
                 background-color: #0156d9;
                 color: #fff;
             }
+
+
+           
         }
 
 
@@ -24,11 +46,18 @@
                 &:after {
                     content: '';
                     top: 50%;
-                    right: -9px;
+                    right: -17px;
                     background-color: #ffffff;
-                    height: 14px;
-                    width: 14px;
-                    @media (max-width: 500px) {
+                    height: 32px;
+                    width: 32px;
+
+                    @media (max-width: 991px) {
+                        right: -12px;
+                        height: 21px;
+                        width: 21px;
+                    }
+
+                    @media (max-width: 767px) {
                         right: -7px;
                         height: 12px;
                         width: 12px;
@@ -39,7 +68,7 @@
                     transform: translate(0,-50%) rotate(-45deg);
                     display: inline-block;
                     position: absolute;
-                    z-index: 998;
+                    z-index: 997;
                 }
                 &.is-active {
                     &:after {

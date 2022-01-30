@@ -23,6 +23,9 @@
         &.is-active {
             top: 50%;
             transform: translate(-50%, -50%);
+            @media (max-width: 767px) {
+                transform: translate(0, -50%);
+            }
         }
 
         .modal-header {
@@ -36,6 +39,14 @@
                 font-weight: 500;
                 font-size: 20px;
             }
+        }
+
+        @media (max-width: 767px) {
+            transform: translate(0, -150%);
+            left: 0;
+            margin-left: 16px;
+            margin-right: 16px;
+            width: calc(100% - 32px);            
         }
     }
 }

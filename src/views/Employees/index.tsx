@@ -12,7 +12,7 @@ const Employees: FC = () => {
     
   return (
     <div className='container'>
-      <section className='d-flex flex-wrap py-4 mx-n-3'>
+      <section className='py-4'>
         {loading ? (
           <div className='d-flex align-items-center justify-content-center w-100 h-100'>
             <Loader />
