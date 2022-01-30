@@ -9,6 +9,7 @@ export type EmployeesInfo = {
     employees: Employee[],
     loading: boolean,
     error?: string
+    isCreating: boolean
 }
 
 export type EmployeeState = {

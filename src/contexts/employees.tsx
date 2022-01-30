@@ -14,13 +14,14 @@ const EmployeesContext = createContext({} as EmployeeState);
 
 export const EmployeesProvider = ({ children }: Props) => {
 
-    const [employeesInfo, setEmployeesInfo] = useState<EmployeesInfo>({ loading: false, employees: [], error: '' });
+    const [employeesInfo, setEmployeesInfo] = useState<EmployeesInfo>({ loading: false, isCreating: false, employees: [], error: '' });
 
     const handleError = (error: string, showAlert: boolean = true) => {
         setEmployeesInfo({
             ...employeesInfo,
             loading: false,
-            error: error
+            error: error,
+            isCreating: false
           });
         // if (showAlert) sendAlert((error as string) ? error : 'Error updating payments', 'error');
         return Promise.reject(error);
@@ -41,11 +42,12 @@ export const EmployeesProvider = ({ children }: Props) => {
     };
 
     const addEmployee = (employee: Employee) => {
+        setEmployeesInfo({ ...employeesInfo, isCreating: true });
         return employeesService.addEmployee(employee).then(
         (response: Employee) => {
             setEmployeesInfo({
                 ...employeesInfo,
-                loading: false,
+                isCreating: false,
                 employees: [...employeesInfo.employees, response],
             });
         },

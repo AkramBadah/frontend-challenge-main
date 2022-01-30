@@ -3,6 +3,7 @@ import Modal from '../Modal';
 import { states } from '../../constants';
 import { useEmployees } from '../../contexts/employees';
 import FieldInput from '../FieldInput';
+import Loader from '../Loader';
 interface Props {
     open: boolean,
     onClose: () => void
@@ -18,7 +19,7 @@ const CreateEmployeeModal: FC<Props> = ({ open, onClose }) => {
     const [state, setState] = useState(initialState);
     const [isSubmited, setIsSubmited] = useState(false);
 
-    const { addEmployee } = useEmployees();
+    const { addEmployee, employeesInfo: { isCreating } } = useEmployees();
 
     function handleInput(ev: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
         setState({
@@ -39,12 +40,18 @@ const CreateEmployeeModal: FC<Props> = ({ open, onClose }) => {
         }
     }
 
+    function handleCloseModal() {
+        setState(initialState)
+        setIsSubmited(false);
+        onClose();
+    }
+
     const nameError = isSubmited && (!state.name || state.name.length < 4);
 
     return (
         <Modal
             open={open}
-            onClose={onClose}
+            onClose={handleCloseModal}
             title='Create Employee'
         >
             <form onSubmit={handleSubmit}>
@@ -75,7 +82,11 @@ const CreateEmployeeModal: FC<Props> = ({ open, onClose }) => {
 
                 <div className='px-3 pt-3 mx-n-3 border-top d-flex justify-content-end'>
                     <button className='btn primary' type='submit' disabled={nameError}>
-                        Create Employee
+                        {isCreating ? (
+                            <Loader size='small' />
+                        ) : (
+                            'Create Employee'
+                        )}
                     </button>
                 </div>
             </form>
