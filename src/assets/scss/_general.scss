@@ -130,6 +130,12 @@
 
 button {
     cursor: pointer;
+
+    &[disabled],
+    &:disabled {
+       opacity: 0.6;
+       cursor: auto;
+    }
 }
 
 .btn {
@@ -149,4 +155,12 @@ button {
     padding: 16px;
     border-radius: 5px;
     border: 1px solid #ececec;
+    &.error {
+        color: #dc143c;
+        border-color: #dc143c;
+    }
+}
+
+.text-red {
+    color: #dc143c;
 }
