@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, { FC } from 'react';
 import './Loader.scss';
 
@@ -8,7 +7,7 @@ interface Props {
 
 const Loader: FC<Props> = ({ size }) => {
     return (
-        <div className={classNames('loader d-inline-block', { small: size === 'small' } )} />
+        <div className={`loader d-inline-block ${size}`} />
     );
 };
 
